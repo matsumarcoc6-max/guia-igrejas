@@ -219,13 +219,11 @@ function changePage(n) {
   document.getElementById('btn-next').disabled = current === totalPages - 1;
 }
 
-// Teclado
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') changePage(current + 1);
   if (e.key === 'ArrowLeft') changePage(current - 1);
 });
 
-// Deslizar o dedo (Touch)
 let touchX = null;
 document.getElementById('page-container').addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
 document.getElementById('page-container').addEventListener('touchmove', e => {
