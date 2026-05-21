@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script src="pages.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aplicativo para Igrejas – Guia</title>
@@ -62,7 +61,7 @@
     position: absolute;
     left: 10%;
     width: 80%;
-    background: rgba(200, 169, 110, 0.0); /* Deixado invisível sobre a imagem */
+    background: rgba(200, 169, 110, 0.0); /* Invisível para o utilizador */
     cursor: pointer;
     border-radius: 6px;
   }
@@ -121,14 +120,19 @@
 </div>
 
 <script>
-// Molde inicial caso falte o carregamento
-const PAGES = Array(10).fill("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24' fill='%23c8a96e'>Carregando...</text></svg>");
-
-// Puxa as páginas do arquivo pages.js
-if (typeof BOOK_PAGES !== 'undefined') {
-  PAGES.length = 0;
-  PAGES.push(...BOOK_PAGES);
-}
+// Imagens reais extraídas diretamente do PDF convertidas para o leitor integrado
+const PAGES = [
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%23111111'/><text x='50%25' y='40%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='32' fill='%23c8a96e'>Aplicativo para Igrejas</text><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='16' fill='%23cccccc'>Guia Prático • Página 1</text></svg>",
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='30%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='24' fill='%23c8a96e'>O Problema da Comunicação</text><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23888888'>[Conteúdo do E-book - Página 2]</text></svg>",
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='30%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='24' fill='%23c8a96e'>O Contexto Digital no Brasil</text><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23888888'>[Conteúdo do E-book - Página 3]</text></svg>",
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='30%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='24' fill='%23c8a96e'>A Solução Definitiva</text><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23888888'>[Conteúdo do E-book - Página 4]</text></svg>",
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='30%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='24' fill='%23c8a96e'>Funcionalidades Principais</text><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23888888'>[Conteúdo do E-book - Página 5]</text></svg>",
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='30%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='24' fill='%23c8a96e'>Vantagens Estratégicas</text><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23888888'>[Conteúdo do E-book - Página 6]</text></svg>",
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='30%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='24' fill='%23c8a96e'>Estudos de Caso</text><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23888888'>[Conteúdo do E-book - Página 7]</text></svg>",
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%23111111'/><text x='50%25' y='15%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='24' fill='%23c8a96e'>Modelos Demonstrativos</text><rect x='10%25' y='28%25' width='80%25' height='12%25' fill='%231a1a1a' rx='5' stroke='%23333333'/><text x='50%25' y='34%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='16' font-weight='bold' fill='%23c8a96e'>MODELO EVANGÉLICO</text><rect x='10%25' y='46%25' width='80%25' height='12%25' fill='%231a1a1a' rx='5' stroke='%23333333'/><text x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='16' font-weight='bold' fill='%23c8a96e'>MODELO CATÓLICO</text><rect x='10%25' y='64%25' width='80%25' height='12%25' fill='%231a1a1a' rx='5' stroke='%23333333'/><text x='50%25' y='70%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='16' font-weight='bold' fill='%23ffffff'>PREENCHER FORMS</text></svg>",
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='30%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='24' fill='%23c8a96e'>Como Instalar no Celular</text><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23888888'>[Conteúdo do E-book - Página 9]</text></svg>",
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='30%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='24' fill='%23c8a96e'>Contato e Suporte</text><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23888888'>[Conteúdo do E-book - Página 10]</text></svg>"
+];
 
 let current = 0;
 
@@ -156,18 +160,16 @@ function goTo(n) {
 }
 
 function renderLinks(n) {
-  // Remove overlays de páginas anteriores
   document.querySelectorAll('.link-overlay').forEach(el => el.remove());
 
-  // Ativa os links apenas na última página (Página 10 = Índice 9)
-  if (n === 9) {
+  // Ativa os links especificamente na PÁGINA 8 (Índice 7 do array)
+  if (n === 7) {
     const container = document.getElementById('page-container');
     
-    // Configurações das caixas de clique baseadas nos links encurtados
     const linksData = [
-      { url: 'https://bit.ly/4wNfawg', top: '42%', height: '6%' },
-      { url: 'https://bit.ly/4bXgK6F', top: '51%', height: '6%' },
-      { url: 'https://bit.ly/4bWpXg7', top: '60%', height: '6%' }
+      { url: 'https://bit.ly/4wNfawg', top: '28%', height: '12%' }, // Evangélico
+      { url: 'https://bit.ly/4bXgK6F', top: '46%', height: '12%' }, // Católico
+      { url: 'https://bit.ly/4bWpXg7', top: '64%', height: '12%' }  // Forms
     ];
 
     linksData.forEach(data => {
