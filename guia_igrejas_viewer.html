@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
- <script src="pages.js"></script>
+<script src="pages.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aplicativo para Igrejas – Guia</title>
@@ -62,14 +62,9 @@
     position: absolute;
     left: 10%;
     width: 80%;
-    background: rgba(200, 169, 110, 0.1);
-    border: 1px dashed var(--accent);
-    border-radius: 6px;
+    background: rgba(200, 169, 110, 0.0); /* Deixado invisível sobre a imagem */
     cursor: pointer;
-    transition: background 0.2s;
-  }
-  .link-overlay:hover {
-    background: rgba(200, 169, 110, 0.25);
+    border-radius: 6px;
   }
 
   #nav-controls { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 800px; background: linear-gradient(to top, var(--bg) 70%, transparent); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 40; }
@@ -126,10 +121,10 @@
 </div>
 
 <script>
-// Mock de imagens - Substitua com as suas páginas reais em Base64
-const PAGES = Array(10).fill("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24' fill='%23c8a96e'>Página de Demonstração</text></svg>");
+// Molde inicial caso falte o carregamento
+const PAGES = Array(10).fill("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%231a1a1a'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24' fill='%23c8a96e'>Carregando...</text></svg>");
 
-// Tente carregar o arquivo externo com os dados reais das páginas se ele existir
+// Puxa as páginas do arquivo pages.js
 if (typeof BOOK_PAGES !== 'undefined') {
   PAGES.length = 0;
   PAGES.push(...BOOK_PAGES);
@@ -161,18 +156,18 @@ function goTo(n) {
 }
 
 function renderLinks(n) {
-  // Remove links antigos para não acumular
+  // Remove overlays de páginas anteriores
   document.querySelectorAll('.link-overlay').forEach(el => el.remove());
 
-  // Ativa os links se estiver na ÚLTIMA PÁGINA (Página 10 = Índice 9)
+  // Ativa os links apenas na última página (Página 10 = Índice 9)
   if (n === 9) {
     const container = document.getElementById('page-container');
     
-    // Configurações exatas das caixas de clique (Ajuste o 'top' se necessário)
+    // Configurações das caixas de clique baseadas nos links encurtados
     const linksData = [
-      { url: 'https://matsumarcoc6-max.github.io/igreja-app/', top: '42%', height: '5%' },
-      { url: 'https://matsumarcoc6-max.github.io/app-paroquial-catolico/', top: '51%', height: '5%' },
-      { url: 'https://forms.gle/vhrurzUUctuyw5G46', top: '60%', height: '5%' }
+      { url: 'https://bit.ly/4wNfawg', top: '42%', height: '6%' },
+      { url: 'https://bit.ly/4bXgK6F', top: '51%', height: '6%' },
+      { url: 'https://bit.ly/4bWpXg7', top: '60%', height: '6%' }
     ];
 
     linksData.forEach(data => {
