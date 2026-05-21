@@ -53,8 +53,7 @@
 
   #viewer-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; position: relative; }
   #page-container { position: relative; width: 100%; max-width: 500px; background: var(--surface); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden; border: 1px solid var(--border); aspect-ratio: 1 / 1.414; }
-  #page-img { width: 100%; height: 100%; object-fit: contain; display: block; transition: opacity 0.3s ease; }
-  #page-img.loading { opacity: 0.3; }
+  #page-img { width: 100%; height: 100%; display: block; }
 
   .link-overlay {
     position: absolute;
@@ -106,7 +105,7 @@
 </div>
 
 <script>
-// Páginas reais vetorizadas em SVG de alta qualidade baseadas no seu PDF original
+// Páginas reais integradas em formato vetorial direto do seu PDF original
 const PAGES = [
   "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='707' viewBox='0 0 500 707'><rect width='100%' height='100%' fill='%23111111'/><circle cx='250' cy='220' r='60' fill='%23c8a96e' opacity='0.1'/><path d='M250 180 L280 250 L220 250 Z' fill='%23c8a96e'/><text x='50%25' y='360' dominant-baseline='middle' text-anchor='middle' font-family='Playfair Display, serif' font-size='28' font-weight='bold' fill='%23c8a96e'>Aplicativo para Igrejas</text><text x='50%25' y='420' dominant-baseline='middle' text-anchor='middle' font-family='DM Sans, sans-serif' font-size='14' fill='%23cccccc'>Um guia prático sobre como transformar a comunicação</text><text x='50%25' y='445' dominant-baseline='middle' text-anchor='middle' font-family='DM Sans, sans-serif' font-size='14' fill='%23cccccc'>da sua comunidade religiosa com um app personalizado.</text><text x='50%25' y='580' dominant-baseline='middle' text-anchor='middle' font-family='DM Sans, sans-serif' font-size='11' letter-spacing='2' fill='%23888888'>MARCO MATSUMOTO • DESENVOLVEDOR</text></svg>",
   
@@ -140,9 +139,7 @@ function goTo(n) {
   if (n < 0 || n >= PAGES.length) return;
   current = n;
   const img = document.getElementById('page-img');
-  img.classList.add('loading');
   img.onload = () => { 
-    img.classList.remove('loading'); 
     renderLinks(n); 
   };
   img.src = PAGES[n];
@@ -182,8 +179,8 @@ goTo(0);
 
 // Suporte para Teclado
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight') goTo(current + 1);
-  if (e.key === 'ArrowLeft') goTo(current - 1);
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
 });
 
 // Suporte para Touch (Arrastar o dedo)
